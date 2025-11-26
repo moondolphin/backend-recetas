@@ -28,7 +28,7 @@ const login = async(req, res = response) => {
             email: usuario.email,
             localId: usuario.id,
             idToken: token,
-            expiresIn: "14400" 
+            expiresIn: "3600" 
         });
 
     } catch (error) {
