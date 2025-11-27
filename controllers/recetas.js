@@ -30,8 +30,33 @@ const addRecipe = async(req, res = response) => {
     });
 }
 
+const editRecipe = async(req, res = response ) => {
+    const { id } = req.params;
+    let { name, description, ingredients, imagePath } = req.body;
+
+    const receta = await Receta.findByIdAndUpdate( id, { name, description, ingredients, imagePath }, { new: true } );
+
+    res.status(200).json({msg: "update recipe ok" });
+
+}
+
+
+const deleteRecipe = async(req, res = response ) => {
+    const { id } = req.params;
+
+
+    const receta = await Receta.findByIdAndDelete( id );
+
+
+    res.status(200).json({msg: "delete recipe ok" });
+
+
+}
+
 
 module.exports = {
     getRecipes,
-    addRecipe
+    addRecipe,
+    editRecipe,
+    deleteRecipe
 }

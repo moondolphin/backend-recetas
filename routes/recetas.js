@@ -23,6 +23,14 @@ router.post('/add', [
     validarCampos
 ], addRecipe);
 
+// PUT (/api/recipes/edit/:id)
+router.put('/edit/:id', [
+    validarJWT
+], editRecipe);
 
+// DELETE (/api/recipes/delete/:id)
+router.delete('/delete/:id', [
+    validarJWT
+], deleteRecipe);
 
 module.exports = router;
