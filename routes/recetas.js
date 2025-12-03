@@ -3,6 +3,7 @@ const { check } = require('express-validator');
 
 const { validarJWT } = require('../middlewares/validar-jwt');
 const { validarCampos } = require('../middlewares/validar-campos');
+const {validarUserRec} = require('../middlewares/validarUserRec');
 
 const { getRecipes, addRecipe, editRecipe, deleteRecipe } = require('../controllers/recetas');
 
@@ -25,12 +26,14 @@ router.post('/add', [
 
 // PUT (/api/recipes/edit/:id)
 router.put('/edit/:id', [
-    validarJWT
+    validarJWT, 
+    validarUserRec
 ], editRecipe);
 
 // DELETE (/api/recipes/delete/:id)
 router.delete('/delete/:id', [
-    validarJWT
+    validarJWT,
+    validarUserRec
 ], deleteRecipe);
 
 module.exports = router;

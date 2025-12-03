@@ -14,13 +14,13 @@ const getRecipes = async(req, res = response) => {
 const addRecipe = async(req, res = response) => {
     
     const { name, description, imagePath, ingredients } = req.body;
-    
+    const emailUsuario = req.usuario.email;
     const receta = new Receta({
         name,
         description,
         imagePath,
         ingredients,
-        userEmail: req.usuario.email 
+        userEmail: emailUsuario
     });
 
     await receta.save();
@@ -32,25 +32,20 @@ const addRecipe = async(req, res = response) => {
 
 const editRecipe = async(req, res = response ) => {
     const { id } = req.params;
-    let { name, description, ingredients, imagePath } = req.body;
+    const { name, description, ingredients, imagePath } = req.body;
 
     const receta = await Receta.findByIdAndUpdate( id, { name, description, ingredients, imagePath }, { new: true } );
-
-    res.status(200).json({msg: "update recipe ok" });
+    const mensj = receta.name + " actualizada correctamente";
+    res.status(200).json({mensj });
 
 }
 
 
 const deleteRecipe = async(req, res = response ) => {
     const { id } = req.params;
-
-
     const receta = await Receta.findByIdAndDelete( id );
-
-
-    res.status(200).json({msg: "delete recipe ok" });
-
-
+    const mensj = receta.name + " eliminada correctamente";
+    res.status(200).json({mensj });
 }
 
 
